@@ -1,9 +1,12 @@
 FROM stackbrew/ubuntu:13.10
 #Thanks to https://github.com/bydavy/docker-plex/blob/master/Dockerfile and https://github.com/aostanin/docker-plex/blob/master/Dockerfile
 MAINTAINER Tim Haak <tim@haak.co.uk>
+
+RUN locale-gen en_US en_US.UTF-8
+
 RUN apt-get -q update
+RUN apt-mark hold initscripts udev plymouth mountall
 RUN apt-get -qy --force-yes dist-upgrade
-#ENV LANG en_US.UTF-8
 
 RUN apt-get install -qy --force-yes curl
 
