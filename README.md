@@ -20,7 +20,9 @@ docker pull timhaak/plex
 ---
 Instructions to run:
 
+```
 docker run -d -h *your_host_name* -v /*your_config_location*:/config -v /*your_videos_location*:/data -p 32400:32400  plex
+```
 
 The first time it runs, it will initialize the config directory and terminate.
 
