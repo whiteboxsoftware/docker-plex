@@ -1,11 +1,8 @@
-FROM stackbrew/ubuntu:13.10
+FROM ubuntu:14.04
 #Thanks to https://github.com/bydavy/docker-plex/blob/master/Dockerfile and https://github.com/aostanin/docker-plex/blob/master/Dockerfile
 MAINTAINER Tim Haak <tim@haak.co.uk>
 
-RUN locale-gen en_US en_US.UTF-8
-
 RUN apt-get -q update
-RUN apt-mark hold initscripts udev plymouth mountall
 RUN apt-get -qy --force-yes dist-upgrade
 
 RUN apt-get install -qy --force-yes curl
@@ -26,4 +23,4 @@ RUN chmod u+x  /start.sh
 
 EXPOSE 32400
 
-ENTRYPOINT ["/start.sh"]
+CMD ["/start.sh"]
