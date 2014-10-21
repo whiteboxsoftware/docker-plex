@@ -15,6 +15,11 @@ RUN apt-get -q update
 
 RUN apt-get install -qy --force-yes plexmediaserver
 
+# apt clean
+RUN apt-get clean &&\
+  rm -rf /var/lib/apt/lists/* &&\
+  rm -rf /tmp/*
+
 VOLUME /config
 VOLUME /data
 
