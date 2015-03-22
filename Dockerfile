@@ -9,7 +9,7 @@ ENV LANGUAGE en_US.UTF-8
 
 RUN apt-get -q update && \
     apt-get install -qy --force-yes curl && \
-    echo "deb http://shell.ninthgate.se/packages/debian squeeze main" > /etc/apt/sources.list.d/plexmediaserver.list && \
+    echo "deb http://shell.ninthgate.se/packages/debian wheezy main" > /etc/apt/sources.list.d/plexmediaserver.list && \
     curl http://shell.ninthgate.se/packages/shell-ninthgate-se-keyring.key | apt-key add - && \
     apt-get -q update && \
     apt-get -qy --force-yes dist-upgrade && \
