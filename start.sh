@@ -1,6 +1,11 @@
-#! /bin/sh
+#!/bin/sh
 
 mkdir -p /config/logs/supervisor
+chown -R plex: /config
+
+touch /supervisord.log
+touch /supervisord.pid
+chown plex: /supervisord.log /supervisord.pid
 
 rm -rf /var/run/*
 rm -f "/config/Library/Application Support/Plex Media Server/plexmediaserver.pid"
@@ -14,4 +19,4 @@ sleep 1
 avahi-daemon -D
 sleep 1
 
-/usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf
+su plex -c "/usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf"
