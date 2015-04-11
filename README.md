@@ -2,6 +2,8 @@
 
 This is a Dockerfile to set up (https://plex.tv/ "Plex Media Server") - (https://plex.tv/)
 
+For alternative version that someone is running that may not work for everyone but if it does is a simpler system look at https://registry.hub.docker.com/u/wernight/plex-media-server/
+
 Build from docker file
 
 ```
