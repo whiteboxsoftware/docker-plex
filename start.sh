@@ -19,4 +19,8 @@ sleep 1
 avahi-daemon -D
 sleep 1
 
-su plex -c "/usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf"
+#Removed till I can think of a better method to fix rights
+#
+#su plex -c "/usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf"
+
+/usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf
