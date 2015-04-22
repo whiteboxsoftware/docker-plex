@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 mkdir -p /config/logs/supervisor
 chown -R plex: /config
