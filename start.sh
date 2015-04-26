@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 mkdir -p /config/logs/supervisor
 chown -R plex: /config
@@ -19,8 +19,19 @@ sleep 1
 avahi-daemon -D
 sleep 1
 
-#Removed till I can think of a better method to fix rights
-#
-#su plex -c "/usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf"
+# Get the proper group membership, credit to http://stackoverflow.com/a/28596874/249107
+TARGET_GID=$(stat -c "%g" /data)
+EXISTS=$(cat /etc/group | grep $TARGET_GID | wc -l)
 
-/usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf
+# Create new group using target GID and add plex user
+if [ $EXISTS == "0" ]; then
+  groupadd -g $ID tempgroup
+  usermod -a -G tempgroup plex
+else
+  # GID exists, find group name and add
+  GROUP=$(getent group $TARGET_GID | cut -d: -f1)
+  usermod -a -G $GROUP plex
+fi
+
+su plex -c "/usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf"
+
