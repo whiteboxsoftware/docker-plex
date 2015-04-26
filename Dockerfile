@@ -2,10 +2,10 @@ FROM debian:wheezy
 MAINTAINER Tim Haak <tim@haak.co.uk>
 #Thanks to https://github.com/bydavy/docker-plex/blob/master/Dockerfile and https://github.com/aostanin/docker-plex/blob/master/Dockerfile
 
-ENV DEBIAN_FRONTEND noninteractive
-ENV LANG en_US.UTF-8
-ENV LC_ALL C.UTF-8
-ENV LANGUAGE en_US.UTF-8
+ENV DEBIAN_FRONTEND="noninteractive" \
+    LANG="en_US.UTF-8" \
+    LC_ALL="C.UTF-8" \
+    LANGUAGE="en_US.UTF-8"
 
 RUN apt-get -q update && \
     apt-get install -qy --force-yes curl && \
@@ -19,13 +19,15 @@ RUN apt-get -q update && \
     rm -rf /var/lib/apt/lists/* && \
     rm -rf /tmp/*
 
-VOLUME /config
-VOLUME /data
+VOLUME ["/config","/data"]
 
 ADD ./start.sh /start.sh
 RUN chmod u+x  /start.sh
 
 ADD ./supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+
+ENV RUN_AS_ROOT="true" \
+    CHANGE_DIR_RIGHTS="false"
 
 EXPOSE 32400
 
