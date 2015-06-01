@@ -4,11 +4,15 @@ MAINTAINER Tim Haak <tim@haak.co.uk>
 
 ENV DEBIAN_FRONTEND="noninteractive" \
     LANG="en_US.UTF-8" \
-    LC_ALL="C.UTF-8" \
+    LC_ALL="en_US.UTF-8" \
     LANGUAGE="en_US.UTF-8"
 
 RUN apt-get -q update && \
-    apt-get install -qy --force-yes curl && \
+    apt-get install -qy locales && \
+    echo 'en_US.UTF-8 UTF-8' >> /etc/locale.gen && \
+    echo 'en_ZA.UTF-8 UTF-8' >> /etc/locale.gen && \
+    locale-gen  && \
+    apt-get install -qy --force-yes curl ca-certificates && \
     echo "deb http://shell.ninthgate.se/packages/debian wheezy main" > /etc/apt/sources.list.d/plexmediaserver.list && \
     curl http://shell.ninthgate.se/packages/shell-ninthgate-se-keyring.key | apt-key add - && \
     apt-get -q update && \
