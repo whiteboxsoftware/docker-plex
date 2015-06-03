@@ -11,7 +11,8 @@ RUN apt-get -q update && \
     apt-get install -qy locales && \
     echo 'en_US.UTF-8 UTF-8' >> /etc/locale.gen && \
     echo 'en_ZA.UTF-8 UTF-8' >> /etc/locale.gen && \
-    locale-gen  && \
+    locale-gen en_US.UTF-8 && \
+    locale-gen en_ZA.UTF-8 && \
     apt-get install -qy --force-yes curl ca-certificates && \
     echo "deb http://shell.ninthgate.se/packages/debian wheezy main" > /etc/apt/sources.list.d/plexmediaserver.list && \
     curl http://shell.ninthgate.se/packages/shell-ninthgate-se-keyring.key | apt-key add - && \
