@@ -1,26 +1,12 @@
-FROM debian:wheezy
-MAINTAINER Tim Haak <tim@haak.co.uk>
-#Thanks to https://github.com/bydavy/docker-plex/blob/master/Dockerfile and https://github.com/aostanin/docker-plex/blob/master/Dockerfile
+FROM timhaak/base:latest
+MAINTAINER tim@haak.co.uk
 
-ENV DEBIAN_FRONTEND="noninteractive" \
-    LANG="en_US.UTF-8" \
-    LC_ALL="en_US.UTF-8" \
-    LANGUAGE="en_US.UTF-8"
-
-RUN apt-get -q update && \
-    apt-get install -qy locales && \
-    echo 'en_US.UTF-8 UTF-8' >> /etc/locale.gen && \
-    echo 'en_ZA.UTF-8 UTF-8' >> /etc/locale.gen && \
-    locale-gen en_US.UTF-8 && \
-    locale-gen en_ZA.UTF-8 && \
-    apt-get install -qy --force-yes curl ca-certificates && \
-    echo "deb http://shell.ninthgate.se/packages/debian wheezy main" > /etc/apt/sources.list.d/plexmediaserver.list && \
+RUN echo "deb http://shell.ninthgate.se/packages/debian wheezy main" > /etc/apt/sources.list.d/plexmediaserver.list && \
     curl http://shell.ninthgate.se/packages/shell-ninthgate-se-keyring.key | apt-key add - && \
     apt-get -q update && \
-    apt-get -qy --force-yes dist-upgrade && \
-    apt-get install -qy --force-yes supervisor ca-certificates procps && \
     apt-get install -qy --force-yes plexmediaserver && \
-    apt-get clean && \
+    apt-get -y autoremove && \
+    apt-get -y clean && \
     rm -rf /var/lib/apt/lists/* && \
     rm -rf /tmp/*
 
