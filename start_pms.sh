@@ -7,7 +7,7 @@ export PLEX_MEDIA_SERVER_TMPDIR=/tmp
 export PLEX_MEDIA_SERVER_APPLICATION_SUPPORT_DIR="/config/"
 export LC_ALL="en_US.UTF-8"
 export LANG="en_US.UTF-8"
-
+mkdir -p /var/run/dbus
 mkdir -p $PLEX_MEDIA_SERVER_APPLICATION_SUPPORT_DIR
 export LD_LIBRARY_PATH="${PLEX_MEDIA_SERVER_HOME}"
 export TMPDIR="${PLEX_MEDIA_SERVER_TMPDIR}"
@@ -17,6 +17,8 @@ rm -f $PLEX_MEDIA_SERVER_APPLICATION_SUPPORT_DIR/Plex\ Media\ Server/*.pid
 
 ulimit -s $PLEX_MAX_STACK_SIZE
 # Add sleep - Possible fix for start on boot.
+dbus-daemon --system &
+avahi-daemon &
 sleep 3
 
 cd /usr/lib/plexmediaserver; ./Plex\ Media\ Server
